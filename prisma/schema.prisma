@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ApplicationStatus {
+  DRAFT
+  APPLIED
+  WAITING
+  NEED_TO_REPLY
+  INTERVIEW
+  REJECTED
+  OFFER
+  ACCEPTED
+}
+
+enum EmailDirection {
+  SENT
+  RECEIVED
+}
+
+model Company {
+  id        String            @id @default(cuid())
+  name      String
+  website   String?
+  position  String
+  status    ApplicationStatus @default(DRAFT)
+  notes     String?           @db.Text
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  emails    Email[]
+}
+
+model Email {
+  id          String         @id @default(cuid())
+  companyId   String
+  company     Company        @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  direction   EmailDirection
+  subject     String
+  body        String         @db.Text
+  date        DateTime       @default(now())
+  cvAttached  Boolean        @default(false)
+  coverLetter String?        @db.Text
+  createdAt   DateTime       @default(now())
+}
+
+model GlobalSettings {
+  id         String   @id @default("singleton")
+  cvFileName String?
+  cvFilePath String?
+  updatedAt  DateTime @updatedAt
+}
