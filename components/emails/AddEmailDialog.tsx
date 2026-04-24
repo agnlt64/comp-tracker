@@ -82,7 +82,7 @@ export function AddEmailDialog({ companyId, hasCv }: AddEmailDialogProps) {
           Add Email
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="md:max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Add Email</DialogTitle>
         </DialogHeader>

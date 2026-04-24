@@ -16,8 +16,8 @@ export function EmailThread({ emails }: { emails: Email[] }) {
     )
   }
 
-  // Already sorted newest→oldest from server, display oldest first (natural reading)
-  const displayEmails = [...emails].reverse()
+  // Sorted newest→oldest from server, display as-is
+  const displayEmails = emails
 
   return (
     <ScrollArea className="h-full">
